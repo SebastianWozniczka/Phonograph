@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 
@@ -86,6 +88,8 @@ public final class PreferenceUtil {
     public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
 
     public static final String LIBRARY_CATEGORIES = "library_categories";
+
+    public static final String MUSIC_PROGRESS = "music_progress";
 
     private static final String REMEMBER_SHUFFLE = "remember_shuffle";
 
@@ -455,6 +459,15 @@ public final class PreferenceUtil {
 
     public final int getLastChangelogVersion() {
         return mPreferences.getInt(LAST_CHANGELOG_VERSION, -1);
+    }
+
+
+
+    public final void setMusicProgress(int progress,int position) {
+        mPreferences.edit().putInt(String.valueOf(position), progress).apply();
+    }
+    public final int getMusicProgress(int position){
+        return mPreferences.getInt(String.valueOf(position), position);
     }
 
     @SuppressLint("CommitPrefEdits")

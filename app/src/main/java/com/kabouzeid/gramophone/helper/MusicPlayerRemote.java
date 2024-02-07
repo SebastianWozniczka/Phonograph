@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.helper;
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -254,8 +256,10 @@ public class MusicPlayerRemote {
     }
 
     public static int seekTo(int millis) {
-        if (musicService != null) {
-            return musicService.seek(millis);
+
+
+       if (musicService != null) {
+           return musicService.seek(millis);
         }
         return -1;
     }

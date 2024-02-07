@@ -1,8 +1,15 @@
 package com.kabouzeid.gramophone;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.provider.MediaStore;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -12,12 +19,16 @@ import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import TestSeby.SebaActivity;
 
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class App extends Application {
+public class App extends Application{
 
     public static final String GOOGLE_PLAY_LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjMeADN5Ffnt/ml5SYxNPCn8kGcOYGpHEfNSCts99vVxqmCn6C01E94c17j7rUK2aeHur5uxphZylzopPlQ8P8l1fqty0GPUNRSo18FCJzfGH8HZAwZYOcnRFPaXdaq3InyFJhBiODh2oeAcVK/idH6QraQ4r9HIlzigAg6lgwzxl2wJKDh7X/GMdDntCyzDh8xDQ0wIawFgvgojHwqh2Ci8Gnq6EYRwPA9yHiIIksT8Q30QyM5ewl5QcnWepsls7enNqeHarhpmSibRUDgCsxHoOpny7SyuvZvUI3wuLckDR0ds9hrt614scHHqDOBp/qWCZiAgOPVAEQcURbV09qQIDAQAB";
     public static final String PRO_VERSION_PRODUCT_ID = "pro_version";
@@ -25,6 +36,11 @@ public class App extends Application {
     private static App app;
 
     private BillingProcessor billingProcessor;
+
+
+
+
+
 
     @Override
     public void onCreate() {

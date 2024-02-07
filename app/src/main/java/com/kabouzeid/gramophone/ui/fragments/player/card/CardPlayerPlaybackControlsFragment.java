@@ -1,5 +1,9 @@
 package com.kabouzeid.gramophone.ui.fragments.player.card;
 
+import static com.kabouzeid.gramophone.helper.MusicPlayerRemote.musicService;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -12,6 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
@@ -24,6 +29,7 @@ import com.kabouzeid.gramophone.misc.SimpleOnSeekbarChangeListener;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
 import butterknife.BindView;
@@ -167,6 +173,8 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
         setUpRepeatButton();
         setUpShuffleButton();
         setUpProgressSlider();
+
+
     }
 
     private void setUpPrevNext() {
@@ -244,11 +252,18 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
         progressSlider.getThumb().mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         progressSlider.getProgressDrawable().mutate().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
 
+
+
         progressSlider.setOnSeekBarChangeListener(new SimpleOnSeekbarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
+
+                  //if(MusicPlayerRemote.getRepeatMode() == MusicService.REPEAT_MODE_NONE)
+                    PreferenceUtil.getInstance(getContext()).setMusicProgress(progress, MusicPlayerRemote.getPosition());
+
                     MusicPlayerRemote.seekTo(progress);
+
                     onUpdateProgressViews(MusicPlayerRemote.getSongProgressMillis(), MusicPlayerRemote.getSongDurationMillis());
                 }
             }

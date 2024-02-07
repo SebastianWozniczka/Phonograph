@@ -46,6 +46,7 @@ import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
@@ -1078,6 +1079,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             case META_CHANGED:
                 updateNotification();
                 updateMediaSessionMetaData();
+
+                int prog = PreferenceUtil.getInstance(this).getMusicProgress(MusicPlayerRemote.getPosition());
+
+                if(prog > 0 ){
+                    MusicPlayerRemote.seekTo(prog);
+                }
+
                 savePosition();
                 savePositionInTrack();
                 final Song currentSong = getCurrentSong();
