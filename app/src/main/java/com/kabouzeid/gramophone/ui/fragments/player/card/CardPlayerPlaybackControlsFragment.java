@@ -261,7 +261,9 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
 
                   //if(MusicPlayerRemote.getRepeatMode() == MusicService.REPEAT_MODE_NONE)
                     PreferenceUtil.getInstance(getContext()).setMusicProgress(progress, MusicPlayerRemote.getPosition());
+                    int totalMilis = MusicPlayerRemote.getSongDurationMillis();
 
+                    if(progress < totalMilis-1)
                     MusicPlayerRemote.seekTo(progress);
 
                     onUpdateProgressViews(MusicPlayerRemote.getSongProgressMillis(), MusicPlayerRemote.getSongDurationMillis());
